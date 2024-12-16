@@ -18,7 +18,7 @@ foreach ($policy in $wafPolicies) {
         $condition = New-AzApplicationGatewayFirewallCondition -MatchVariable $variable -Operator IPMatch -MatchValue $ipAddressToBlock
 
         # Create the custom rule
-        $ruleName = "BlockIP_" + $ipAddressToBlock
+        $ruleName = "BlockIP" + ($ipAddressToBlock -replace '\.', 'dot') 
         $rule = New-AzApplicationGatewayFirewallCustomRule -Name $ruleName -Priority 100 -RuleType MatchRule -MatchCondition $condition -Action Block -State Enabled
 
         # Add the rule to the policy
